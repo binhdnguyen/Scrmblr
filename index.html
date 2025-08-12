@@ -231,6 +231,11 @@
             }
           }
 
+          function clearInput() {
+            setInput("");
+            setIsFirstFocus(false);
+          }
+
           async function copyOut() {
             try {
               await navigator.clipboard.writeText(output);
@@ -246,13 +251,19 @@
               React.createElement('h1', {
                 className: "text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight mb-2 text-center sm:text-left"
               }, "WeChat Keyword Evasion Scrambler"),
-              React.createElement('p', { className: "text-xs sm:text-sm text-neutral-600 mb-4 sm:mb-6 text-center sm:text-left leading-relaxed" },
+              React.createElement('p', { className: "hidden sm:block text-xs sm:text-sm text-neutral-600 mb-4 sm:mb-6 text-center sm:text-left leading-relaxed" },
                 "⚠️ For reducing basic keyword flags only. This does not provide real privacy. For sensitive topics, use end‑to‑end encryption and consider steganography."
               ),
 
               React.createElement('div', { className: "grid lg:grid-cols-2 gap-4 sm:gap-6" },
                 React.createElement('div', { className: "space-y-3 order-2 lg:order-1" },
-                  React.createElement('label', { className: "text-sm font-medium" }, "Input"),
+                  React.createElement('div', { className: "flex items-center justify-between" },
+                    React.createElement('label', { className: "text-sm font-medium" }, "Input"),
+                    React.createElement('button', {
+                      onClick: clearInput,
+                      className: "text-xs text-neutral-500 hover:text-neutral-700 px-2 py-1 rounded-lg hover:bg-neutral-100"
+                    }, "Clear")
+                  ),
                   React.createElement('textarea', {
                     value: input,
                     onChange: handleInputChange,
@@ -357,13 +368,31 @@
                     }, "Clear output")
                   ),
 
-                  React.createElement('div', { className: "text-xs sm:text-xs text-neutral-600 leading-relaxed bg-white rounded-2xl p-3 sm:p-4 border border-neutral-200 shadow-sm" },
+                  React.createElement('div', { className: "hidden lg:block text-xs sm:text-xs text-neutral-600 leading-relaxed bg-white rounded-2xl p-3 sm:p-4 border border-neutral-200 shadow-sm" },
                     React.createElement('p', { className: "mb-2" }, "Tips:"),
                     React.createElement('ul', { className: "list-disc ml-5 space-y-1" },
                       React.createElement('li', null, "Rotate techniques. Don't use the same pattern every time."),
                       React.createElement('li', null, "Keep messages natural‑looking to avoid human scrutiny."),
                       React.createElement('li', null, "For real privacy, move to end‑to‑end encrypted apps (e.g., Signal) and consider steganography.")
                     )
+                  )
+                )
+              ),
+
+              // Mobile-only sections at bottom
+              React.createElement('div', { className: "lg:hidden mt-6 space-y-4" },
+                // Alert section for mobile
+                React.createElement('div', { className: "text-xs text-neutral-600 bg-white rounded-2xl p-3 border border-neutral-200 shadow-sm text-center" },
+                  "⚠️ For reducing basic keyword flags only. This does not provide real privacy. For sensitive topics, use end‑to‑end encryption and consider steganography."
+                ),
+                
+                // Tips section for mobile
+                React.createElement('div', { className: "text-xs text-neutral-600 leading-relaxed bg-white rounded-2xl p-3 border border-neutral-200 shadow-sm" },
+                  React.createElement('p', { className: "mb-2 font-medium" }, "Tips:"),
+                  React.createElement('ul', { className: "list-disc ml-5 space-y-1" },
+                    React.createElement('li', null, "Rotate techniques. Don't use the same pattern every time."),
+                    React.createElement('li', null, "Keep messages natural‑looking to avoid human scrutiny."),
+                    React.createElement('li', null, "For real privacy, move to end‑to‑end encrypted apps (e.g., Signal) and consider steganography.")
                   )
                 )
               )
