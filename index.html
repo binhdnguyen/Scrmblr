@@ -268,9 +268,35 @@
                     value: input,
                     onChange: handleInputChange,
                     onFocus: handleInputFocus,
-                    className: "w-full h-32 sm:h-48 rounded-2xl border border-neutral-200 p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-neutral-800 bg-white shadow-sm text-sm sm:text-base",
-                    placeholder: "Type your message here…"
+                    className: "w-full min-h-[4.5rem] max-h-96 rounded-2xl border border-neutral-200 p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-neutral-800 bg-white shadow-sm text-sm sm:text-base resize-none overflow-auto",
+                    placeholder: "Type your message here…",
+                    rows: 3,
+                    style: { height: 'auto' },
+                    onInput: (e) => {
+                      e.target.style.height = 'auto';
+                      e.target.style.height = e.target.scrollHeight + 'px';
+                    }
                   }),
+
+                  React.createElement('div', { className: "flex flex-col sm:flex-row gap-2 sm:gap-3" },
+                    React.createElement('button', {
+                      onClick: run,
+                      className: "px-4 py-3 sm:py-2 rounded-2xl bg-neutral-900 text-white shadow hover:shadow-md active:scale-[.99] text-sm sm:text-base font-medium"
+                    }, "Scramble"),
+                    React.createElement('button', {
+                      onClick: () => setOpts({
+                        useZeroWidth: true,
+                        useHomoglyphs: true,
+                        useSplit: false,
+                        useLeet: false,
+                        useCombining: true,
+                        useMixScripts: false,
+                        seed: "",
+                        splitSeparators: ".,*, ",
+                      }),
+                      className: "px-4 py-3 sm:py-2 rounded-2xl bg-white border border-neutral-300 text-neutral-900 shadow-sm hover:shadow text-sm sm:text-base font-medium"
+                    }, "Reset options")
+                  ),
 
                   React.createElement('div', { className: "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 bg-white rounded-2xl p-3 sm:p-4 border border-neutral-200 shadow-sm" },
                     React.createElement(Toggle, {
@@ -322,26 +348,6 @@
                         placeholder: "Leave blank for random"
                       })
                     )
-                  ),
-
-                  React.createElement('div', { className: "flex flex-col sm:flex-row gap-2 sm:gap-3" },
-                    React.createElement('button', {
-                      onClick: run,
-                      className: "px-4 py-3 sm:py-2 rounded-2xl bg-neutral-900 text-white shadow hover:shadow-md active:scale-[.99] text-sm sm:text-base font-medium"
-                    }, "Scramble"),
-                    React.createElement('button', {
-                      onClick: () => setOpts({
-                        useZeroWidth: true,
-                        useHomoglyphs: true,
-                        useSplit: false,
-                        useLeet: false,
-                        useCombining: true,
-                        useMixScripts: false,
-                        seed: "",
-                        splitSeparators: ".,*, ",
-                      }),
-                      className: "px-4 py-3 sm:py-2 rounded-2xl bg-white border border-neutral-300 text-neutral-900 shadow-sm hover:shadow text-sm sm:text-base font-medium"
-                    }, "Reset options")
                   )
                 ),
 
@@ -353,8 +359,16 @@
                   React.createElement('textarea', {
                     value: output,
                     readOnly: true,
-                    className: "w-full h-40 sm:h-64 rounded-2xl border border-neutral-200 p-3 sm:p-4 bg-neutral-50 shadow-inner text-sm sm:text-base",
-                    placeholder: "Your scrambled message will appear here…"
+                    className: "w-full min-h-[4.5rem] max-h-96 rounded-2xl border border-neutral-200 p-3 sm:p-4 bg-neutral-50 shadow-inner text-sm sm:text-base resize-none overflow-auto",
+                    placeholder: "Your scrambled message will appear here…",
+                    rows: 3,
+                    style: { height: output ? 'auto' : '4.5rem' },
+                    ref: (el) => {
+                      if (el && output) {
+                        el.style.height = 'auto';
+                        el.style.height = el.scrollHeight + 'px';
+                      }
+                    }
                   }),
                   React.createElement('div', { className: "flex flex-col sm:flex-row gap-2 sm:gap-3" },
                     React.createElement('button', {
